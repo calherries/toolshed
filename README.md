@@ -1,4 +1,6 @@
 # toolshed 
+[![Clojars Project](https://img.shields.io/clojars/v/callum-herries/toolshed.svg)](https://clojars.org/callum-herries/toolshed)
+
 *noun*
 /ˈtuːlˌʃed/
 
