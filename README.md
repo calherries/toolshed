@@ -6,15 +6,7 @@ a small building in which tools and garden equipment are kept.
 
 -------------
 
-
-
 Inspired by [medley](https://github.com/weavejester/medley) and [potpuri](https://github.com/metosin/potpuri).
-
-## Installation
-
-To install, add the following to your tools.deps `:deps`:
-
-    {com.github.callum-herries/toolshed {:mvn/version "0.0.1"}}
 
 ## License
 
