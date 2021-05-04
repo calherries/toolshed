@@ -14,7 +14,7 @@
 
 (defn start-system [config components]
   (reset! system (merge {:stop '()} config))
-  (run! #(reset! system (% @system)) components))
+  (run! #(swap! system %) components))
 
 (defn stop-system []
   (run! #(%) (:stop @system))
