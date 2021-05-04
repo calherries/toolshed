@@ -1,6 +1,8 @@
-{:deps {}
+{:deps {org.clojure/tools.namespace {:mvn/version "0.2.11"}
+        info.sunng/ring-jetty9-adapter {:mvn/version "0.14.0"}
+        metosin/reitit-ring {:mvn/version "0.3.7"}}
  :aliases {:test {:extra-paths ["test"]}
            :release
-           {:extra-deps {applied-science/deps-library {:mvn/version "VERSION"}}
+           {:extra-deps {applied-science/deps-library {:mvn/version "0.4.0"}}
             :main-opts ["-m" "applied-science.deps-library"]}
-                                :artifact "deps-deploy.jar"}}
+           :artifact "deps-deploy.jar"}}

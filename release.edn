@@ -1,0 +1,4 @@
+{:group-id "callum-herries"
+ :artifact-id "toolshed"
+ :scm-url "https://github.com/callum-herries/toolshed"
+ :version "0.1.2"}

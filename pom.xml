@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+  <modelVersion>4.0.0</modelVersion>
+    
+  <groupId>callum-herries</groupId>
+    
+  <artifactId>toolshed</artifactId>
+    
+  <version>0.1.2</version>
+    
+  <name>toolshed</name>
+    
+  <dependencies/>
+    
+  <repositories/>
+  
+  <scm>
+    <url>https://github.com/callum-herries/toolshed</url>
+    <tag>808b33b3337042e267bf3ee890391e44c66a96c3</tag>
+    <connection>scm:git:git@github.com:callum-herries/toolshed.git</connection>
+    <developerConnection>scm:git:git@github.com:callum-herries/toolshed.git</developerConnection>
+  </scm>
+</project>
