@@ -1,5 +1,10 @@
 (ns toolshed.transform)
 
+;; This namespace is inspired by instar and specter.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Private
+
 (def ^:private STAR *)
 
 (def ^:private star? #{STAR})
@@ -10,37 +15,37 @@
 
 (def ^:private capture-symbol? #{CAPTURE_WITH_RESOLUTION CAPTURE_WITHOUT_RESOLUTION})
 
-(defn- capture?
+(defn capture?
   "Determine if crumb is a capture form"
   [crumb]
   (and (vector? crumb)
        (capture-symbol? (first crumb))))
 
-(defn- name* [x]
+(defn name* [x]
   (if (number? x) (str x) (name x)))
 
-(defn- split-at-exclusive [index path]
+(defn split-at-exclusive [index path]
   (let [[a b] (split-at index path)]
     [(into [] a)
      (into [] (drop 1 b))]))
 
-(defn- regex? [path-segment]
+(defn regex? [path-segment]
   (instance?
    #?(:clj java.util.regex.Pattern
       :cljs js/RegExp)
    path-segment))
 
-(defn- expand-keys [value]
+(defn expand-keys [value]
   (cond (sequential? value) (range (count value))
         (associative? value) (keys value)))
 
-(defn- index-of [coll val]
+(defn index-of [coll val]
   (first (keep-indexed #(when (= val %2) %1) coll)))
 
-(defn- append-vec [base key value]
+(defn append-vec [base key value]
   (update-in base [key] #(conj (vec %) value)))
 
-(defn- expand-path-with [state base keep?]
+(defn expand-path-with [state base keep?]
   (let [value (get-in state (:path base))]
     (if-let [ks (filter #(keep? %) (expand-keys value))]
       (for [k ks] (append-vec base :path k)))))
@@ -94,7 +99,7 @@
    m
    path-transforms))
 
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Public API
 
 (defn %>

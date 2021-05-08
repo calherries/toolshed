@@ -171,3 +171,28 @@
 (comment
   (java.util.Date.)
   (format-date (java.util.Date.)))
+
+(defn index-of
+  "Works like (.indexOf :a [:a :b :c :d]) in clj, but for both clj and cljs."
+  [coll val]
+  (first (keep-indexed (fn [idx x] (when (= val x) idx)) coll)))
+
+(comment
+  (= (map #(index-of [:a :b :c :d] %) [:b :c :d :a])
+     [1 2 3 0]))
+
+(defn positions
+  "Returns a lazy sequence containing the positions at which pred
+   is true for items in coll."
+  [pred coll]
+  (keep-indexed
+   (fn [idx x]
+     (when (pred x)
+       idx))
+   coll))
+
+(comment
+  (= (positions #{:a} [:a :b :c :d])
+     [0])
+  (= (positions odd? (range 4))
+     [1 3]))

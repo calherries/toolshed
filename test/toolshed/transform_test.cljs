@@ -7,7 +7,7 @@
 (def test-state2 {:foo {:1 {:q1 {:a 1}}, :2 {:q2 2}, :3 {:q3 3}}})
 (def test-state3 {:foo {:1 [[{:q1 1}]] :2 {:a {:b {:q1 1 :q2 2}}}}})
 
-(defn- expand-path
+(defn expand-path
   "Adapter method from new return type to old, to defer rewriting tests."
   [state path]
   (into #{} (map :path (instar/expand-path state path))))
