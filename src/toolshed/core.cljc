@@ -198,8 +198,6 @@
   (= (positions odd? (range 4))
      [1 3]))
 
-js->clj
-
 ;; Inspired by Aaron Blenkush's answer
 ;; https://stackoverflow.com/questions/32467299/clojurescript-convert-arbitrary-javascript-object-to-clojure-script-map/32583549#32583549
 #?(:cljs
