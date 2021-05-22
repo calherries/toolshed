@@ -1,6 +1,7 @@
 (ns toolshed.core
   "A small collection of useful functions and macros.
-   Inspired by medley, potpuri, and flub.")
+   Inspired by medley, potpuri, and flub."
+  #?(:cljs (:require [goog.object])))
 
 (defn- editable? [coll]
   #?(:clj  (instance? clojure.lang.IEditableCollection coll)
@@ -197,8 +198,43 @@
   (= (positions odd? (range 4))
      [1 3]))
 
+js->clj
+
+;; Inspired by Aaron Blenkush's answer
+;; https://stackoverflow.com/questions/32467299/clojurescript-convert-arbitrary-javascript-object-to-clojure-script-map/32583549#32583549
 #?(:cljs
-   (defn js
-     "For cases when built-in js->clj doesn't work. Source: https://stackoverflow.com/a/32583549/4839573"
-     [x]
-     (into {} (for [k (js-keys x)] [(keyword k) (aget x k)]))))
+   (defn ->clj
+     "Recursively transforms JavaScript arrays into ClojureScript
+      vectors, and JavaScript objects into ClojureScript maps.
+      Turns string keys into keywords. Works where js->clj doesn't.
+      The default behaviour is non-recursive, but with :recursive true
+      it will recursively transform nested values."
+     ([obj]
+      (-> (fn [result key]
+            (let [v (goog.object/get obj key)]
+              (if (= "function" (goog/typeOf v))
+                result
+                (assoc result (keyword key) v))))
+          (reduce {} (.getKeys goog/object obj))))
+     ([obj & {:keys [recursive]}]
+      (if recursive
+        (if (goog.isObject obj)
+          (-> (fn [result key]
+                (let [v (goog.object/get obj key)]
+                  (if (= "function" (goog/typeOf v))
+                    result
+                    (assoc result (keyword key) (->clj v :recursive recursive)))))
+              (reduce {} (.getKeys goog/object obj)))
+          obj)
+        (->clj obj)))))
+
+#?(:cljs
+   (comment
+     (js->clj js/document) ;; returns nil
+     (->clj js/document) ;; returns huge map
+     (->clj #js {"hey" 1
+                 :c  #js {:b 2}})
+     (->clj #js {:a 1
+                 :c #js {"hey" 2}} :recursive true)
+     (->clj #js {:a 1
+                 :c #js {"hey" 2}} :recursive false)))
