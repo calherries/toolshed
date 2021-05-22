@@ -39,8 +39,6 @@
   (cond (sequential? value) (range (count value))
         (associative? value) (keys value)))
 
-(defn index-of [coll val]
-  (first (keep-indexed #(when (= val %2) %1) coll)))
 
 (defn append-vec [base key value]
   (update-in base [key] #(conj (vec %) value)))
